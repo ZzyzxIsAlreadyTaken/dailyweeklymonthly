@@ -10,7 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "~/components/ui/select";
-import { CheckCircle, Circle, Clock } from "lucide-react";
+import { CheckCircle, Circle, Clock, ChevronDown } from "lucide-react";
 import { cn, formatDate } from "~/lib/utils";
 import { DailyGoal, WeeklyGoal, MonthlyGoal, GoalStatus } from "~/types";
 import {
@@ -20,6 +20,12 @@ import {
 } from "~/data/mockData";
 import { Checkbox } from "~/components/ui/checkbox";
 import { Badge } from "~/components/ui/badge";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "~/components/ui/dropdown-menu";
 
 type CalendarViewMode = "day" | "week" | "month";
 
@@ -184,13 +190,6 @@ export function CalendarView() {
   };
 
   const renderGoalItem = (goal: DailyGoal | WeeklyGoal | MonthlyGoal) => {
-    // Define status cycle
-    const nextStatus: Record<GoalStatus, GoalStatus> = {
-      "not-started": "in-progress",
-      "in-progress": "completed",
-      completed: "not-started",
-    };
-
     return (
       <li
         key={goal.id}
@@ -217,19 +216,43 @@ export function CalendarView() {
           />
           <span>{goal.title}</span>
         </div>
-        <Badge
-          className={cn("cursor-pointer", statusColors[goal.status])}
-          onClick={() => handleStatusChange(goal, nextStatus[goal.status])}
-        >
-          <span className="mr-1">{renderStatusIcon(goal.status)}</span>
-          <span className="capitalize">{goal.status.replace("-", " ")}</span>
-        </Badge>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <Badge className={cn("cursor-pointer", statusColors[goal.status])}>
+              <span className="mr-1">{renderStatusIcon(goal.status)}</span>
+              <span className="capitalize">
+                {goal.status.replace("-", " ")}
+              </span>
+              <ChevronDown className="ml-1 h-3 w-3" />
+            </Badge>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent align="end">
+            <DropdownMenuItem
+              onClick={() => handleStatusChange(goal, "not-started")}
+            >
+              <Circle className="mr-2 h-4 w-4 text-gray-400" />
+              <span>Not Started</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleStatusChange(goal, "in-progress")}
+            >
+              <Clock className="mr-2 h-4 w-4 text-amber-500" />
+              <span>In Progress</span>
+            </DropdownMenuItem>
+            <DropdownMenuItem
+              onClick={() => handleStatusChange(goal, "completed")}
+            >
+              <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
+              <span>Completed</span>
+            </DropdownMenuItem>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </li>
     );
   };
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 px-4 sm:px-0">
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <h2 className="text-2xl font-bold">Calendar View</h2>
         <div className="flex items-center gap-2">

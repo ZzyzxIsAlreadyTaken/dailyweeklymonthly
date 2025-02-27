@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { CheckCircle, Circle, Clock, MoreHorizontal } from "lucide-react";
+import { CheckCircle, Circle, Clock, ChevronDown } from "lucide-react";
 import { Goal, GoalStatus } from "~/types";
 import { cn } from "~/lib/utils";
 import {
@@ -97,21 +97,37 @@ export function GoalCard({ goal, onStatusChange }: GoalCardProps) {
               {goal.title}
             </CardTitle>
           </div>
-          <Badge
-            className={cn("cursor-pointer", statusColors[goal.status])}
-            onClick={() => {
-              // Cycle through statuses on badge click
-              const nextStatus: Record<GoalStatus, GoalStatus> = {
-                "not-started": "in-progress",
-                "in-progress": "completed",
-                completed: "not-started",
-              };
-              handleStatusChange(nextStatus[goal.status]);
-            }}
-          >
-            <span className="mr-1">{statusIcons[goal.status]}</span>
-            <span className="capitalize">{goal.status.replace("-", " ")}</span>
-          </Badge>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Badge
+                className={cn("cursor-pointer", statusColors[goal.status])}
+              >
+                <span className="mr-1">{statusIcons[goal.status]}</span>
+                <span className="capitalize">
+                  {goal.status.replace("-", " ")}
+                </span>
+                <ChevronDown className="ml-1 h-3 w-3" />
+              </Badge>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="end">
+              <DropdownMenuItem
+                onClick={() => handleStatusChange("not-started")}
+              >
+                <Circle className="mr-2 h-4 w-4 text-gray-400" />
+                <span>Not Started</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onClick={() => handleStatusChange("in-progress")}
+              >
+                <Clock className="mr-2 h-4 w-4 text-amber-500" />
+                <span>In Progress</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => handleStatusChange("completed")}>
+                <CheckCircle className="mr-2 h-4 w-4 text-green-500" />
+                <span>Completed</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
         </div>
       </CardHeader>
       <CardContent>
