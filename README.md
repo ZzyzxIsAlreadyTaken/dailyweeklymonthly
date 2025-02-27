@@ -1,29 +1,60 @@
-# Create T3 App
+# Training Goals Tracker
 
-This is a [T3 Stack](https://create.t3.gg/) project bootstrapped with `create-t3-app`.
+A modern web application for tracking your daily, weekly, and monthly training goals. Built with Next.js and Shadcn UI.
 
-## What's next? How do I make an app with this?
+## Features
 
-We try to keep this project as simple as possible, so you can start with just the scaffolding we set up for you, and add additional things later when they become necessary.
+- **Dashboard View**: Focus on today's goals while having easy access to weekly and monthly views
+- **Goal Management**: Track goals with different statuses (not started, in progress, completed)
+- **Responsive Design**: Works on desktop and mobile devices
 
-If you are not familiar with the different technologies used in this project, please refer to the respective docs. If you still are in the wind, please join our [Discord](https://t3.gg/discord) and ask for help.
+## Tech Stack
 
-- [Next.js](https://nextjs.org)
-- [NextAuth.js](https://next-auth.js.org)
-- [Prisma](https://prisma.io)
-- [Drizzle](https://orm.drizzle.team)
-- [Tailwind CSS](https://tailwindcss.com)
-- [tRPC](https://trpc.io)
+- **Framework**: Next.js
+- **UI Components**: Shadcn UI
+- **Styling**: Tailwind CSS
+- **Language**: TypeScript
 
-## Learn More
+## Getting Started
 
-To learn more about the [T3 Stack](https://create.t3.gg/), take a look at the following resources:
+### Prerequisites
 
-- [Documentation](https://create.t3.gg/)
-- [Learn the T3 Stack](https://create.t3.gg/en/faq#what-learning-resources-are-currently-available) — Check out these awesome tutorials
+- Node.js 18+ and npm
 
-You can check out the [create-t3-app GitHub repository](https://github.com/t3-oss/create-t3-app) — your feedback and contributions are welcome!
+### Installation
 
-## How do I deploy this?
+1. Clone the repository
+2. Install dependencies:
 
-Follow our deployment guides for [Vercel](https://create.t3.gg/en/deployment/vercel), [Netlify](https://create.t3.gg/en/deployment/netlify) and [Docker](https://create.t3.gg/en/deployment/docker) for more information.
+```bash
+npm install
+```
+
+3. Start the development server:
+
+```bash
+npm run dev
+```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Project Structure
+
+- `/src/components/dashboard`: Dashboard-related components
+- `/src/components/ui`: UI components from Shadcn
+- `/src/data`: Mock data for the application
+- `/src/types`: TypeScript type definitions
+- `/src/lib`: Utility functions
+
+## Future Enhancements
+
+- User authentication
+- Persistent storage with a database
+- Goal creation and editing
+- Progress tracking and statistics
+- Calendar view for planning
+- Mobile app version
+
+## License
+
+MIT
