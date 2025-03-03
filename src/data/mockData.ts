@@ -27,6 +27,8 @@ const getWeekNumber = (date: Date) => {
 };
 
 const today = new Date();
+const yesterday = new Date(today.getTime() - 24 * 60 * 60 * 1000);
+const tomorrow = new Date(today.getTime() + 24 * 60 * 60 * 1000);
 const { startDate, endDate } = getCurrentWeekDates();
 const currentWeekNumber = getWeekNumber(today);
 const currentMonth = today.getMonth();
@@ -66,6 +68,22 @@ export const mockDailyGoals: DailyGoal[] = [
     status: "in-progress",
     createdAt: new Date(today.setHours(0, 0, 0, 0)),
     date: today,
+  },
+  {
+    id: "d5",
+    title: "12,000 Steps",
+    description: "Daily step goal",
+    status: "completed",
+    createdAt: new Date(today.setHours(0, 0, 0, 0)),
+    date: yesterday,
+  },
+  {
+    id: "d6",
+    title: "14,000 Steps",
+    description: "Daily step goal",
+    status: "in-progress",
+    createdAt: new Date(today.setHours(0, 0, 0, 0)),
+    date: tomorrow,
   },
 ];
 

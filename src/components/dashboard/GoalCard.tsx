@@ -2,15 +2,9 @@
 
 import { useState, useEffect } from "react";
 import { CheckCircle, Circle, Clock, ChevronDown } from "lucide-react";
-import { Goal, GoalStatus } from "~/types";
+import type { Goal, GoalStatus } from "~/types";
 import { cn } from "~/lib/utils";
-import {
-  Card,
-  CardContent,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "~/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle } from "~/components/ui/card";
 import { Checkbox } from "~/components/ui/checkbox";
 import {
   DropdownMenu,

@@ -4,6 +4,8 @@ import { useState } from "react";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "~/components/ui/tabs";
 import { GoalList } from "./GoalList";
 import { CalendarView } from "./CalendarView";
+import { Overview } from "./Overview";
+import { AddGoalButton } from "~/components/goals/AddGoalButton";
 import {
   mockDailyGoals,
   mockWeeklyGoals,
@@ -13,7 +15,9 @@ import { formatDate } from "~/lib/utils";
 import type { TimeFrame } from "~/types";
 
 export function Dashboard() {
-  const [activeTab, setActiveTab] = useState<TimeFrame | "calendar">("today");
+  const [activeTab, setActiveTab] = useState<
+    TimeFrame | "calendar" | "overview"
+  >("today");
   const today = new Date();
 
   return (
@@ -27,13 +31,14 @@ export function Dashboard() {
 
       <Tabs
         defaultValue="today"
-        onValueChange={(value) => setActiveTab(value as TimeFrame | "calendar")}
+        onValueChange={(value) =>
+          setActiveTab(value as TimeFrame | "calendar" | "overview")
+        }
       >
         <div className="mb-6">
-          <TabsList className="grid w-full max-w-md grid-cols-4">
+          <TabsList className="grid w-full max-w-md grid-cols-3">
             <TabsTrigger value="today">Today</TabsTrigger>
-            <TabsTrigger value="week">This Week</TabsTrigger>
-            <TabsTrigger value="month">This Month</TabsTrigger>
+            <TabsTrigger value="overview">Overview</TabsTrigger>
             <TabsTrigger value="calendar">Calendar</TabsTrigger>
           </TabsList>
         </div>
@@ -55,50 +60,17 @@ export function Dashboard() {
           />
         </TabsContent>
 
-        <TabsContent value="week" className="space-y-6">
+        <TabsContent value="overview" className="space-y-6">
           <div className="rounded-lg bg-slate-50 p-4">
             <h2 className="text-xl font-semibold text-slate-800">
-              This Week&apos;s Overview
+              Complete Overview
             </h2>
             <p className="text-sm text-slate-600">
-              Track your weekly training progress
+              View and manage all your goals in one place
             </p>
           </div>
 
-          <GoalList
-            goals={mockWeeklyGoals}
-            title="Weekly Goals"
-            emptyMessage="No weekly goals set. Plan your week by adding goals!"
-          />
-
-          <GoalList
-            goals={mockDailyGoals}
-            title="Today's Goals"
-            emptyMessage="No goals set for today."
-          />
-        </TabsContent>
-
-        <TabsContent value="month" className="space-y-6">
-          <div className="rounded-lg bg-slate-50 p-4">
-            <h2 className="text-xl font-semibold text-slate-800">
-              Monthly Progress
-            </h2>
-            <p className="text-sm text-slate-600">
-              Review your long-term training objectives
-            </p>
-          </div>
-
-          <GoalList
-            goals={mockMonthlyGoals}
-            title="Monthly Goals"
-            emptyMessage="No monthly goals set. Set some long-term objectives!"
-          />
-
-          <GoalList
-            goals={mockWeeklyGoals}
-            title="This Week's Goals"
-            emptyMessage="No goals set for this week."
-          />
+          <Overview />
         </TabsContent>
 
         <TabsContent value="calendar" className="space-y-6">
@@ -114,6 +86,8 @@ export function Dashboard() {
           <CalendarView />
         </TabsContent>
       </Tabs>
+
+      <AddGoalButton />
     </div>
   );
 }
